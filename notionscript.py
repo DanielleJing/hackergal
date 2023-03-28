@@ -1,0 +1,1 @@
+print("she's a ~*~hacker~*~")
