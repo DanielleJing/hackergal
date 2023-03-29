@@ -1,3 +1,4 @@
+
 import { Client } from "@notionhq/client"
 
 const notion = new Client({ auth: process.env.NOTION_KEY })
@@ -27,4 +28,13 @@ async function addItem(text) {
   }
 }
 
-addItem("Yurts in Big Sur, California")
+var today = new Date();
+let dd = today.getDate();
+let mm = today.getMonth();
+let yyyy = today.getFullYear();
+let months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+today = months[mm]+" "+dd+", "+yyyy;
+
+addItem(today)
+console.log(today)
