@@ -38,3 +38,4 @@ today = months[mm]+" "+dd+", "+yyyy;
 
 addItem(today)
 console.log(today)
+console.log("hihihi")
