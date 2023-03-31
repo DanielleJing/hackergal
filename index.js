@@ -30,17 +30,12 @@ async function addItem(text) {
   }
  
 
-cron.schedule('* * * * *', function() {
-    console.log('----------------');
-      
-      let today = new Date();
-      let dd = today.getDate();
-      let mm = today.getMonth();
-      let yyyy = today.getFullYear();
-      let months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-      let min = today.getMinutes();
+let today = new Date();
+let dd = today.getDate();
+let mm = today.getMonth();
+let yyyy = today.getFullYear();
+let months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
-      today = months[mm]+" "+dd+", "+yyyy+", "+min;
-    addItem(today);
-    console.log(today)
-})
+today = months[mm]+" "+dd+", "+yyyy;
+addItem(today);
+console.log(today)
