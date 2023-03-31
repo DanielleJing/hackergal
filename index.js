@@ -1,41 +1,46 @@
 
 import { Client } from "@notionhq/client"
+import cron from 'node-cron';
 
 const notion = new Client({ auth: process.env.NOTION_KEY })
 
 const databaseId = process.env.NOTION_DATABASE_ID
 
 async function addItem(text) {
-  try {
-    const response = await notion.pages.create({
-      parent: { database_id: databaseId },
-      properties: {
-        title: {
-          title:[
-            {
-              "text": {
-                "content": text
+    try {
+      const response = await notion.pages.create({
+        parent: { database_id: databaseId },
+        properties: {
+          title: {
+            title:[
+              {
+                "text": {
+                  "content": text
+                }
               }
-            }
-          ]
-        }
-      },
-    })
-    console.log(response)
-    console.log("Success! Entry added.")
-  } catch (error) {
-    console.error(error.body)
+            ]
+          }
+        },
+      })
+      console.log(response)
+      console.log("Success! Entry added.")
+    } catch (error) {
+      console.error(error.body)
+    }
   }
-}
+ 
 
-var today = new Date();
-let dd = today.getDate();
-let mm = today.getMonth();
-let yyyy = today.getFullYear();
-let months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+cron.schedule('* * * * *', function() {
+    console.log('----------------');
+      
+      let today = new Date();
+      let dd = today.getDate();
+      let mm = today.getMonth();
+      let yyyy = today.getFullYear();
+      let months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      let min = today.getMinutes();
 
-today = months[mm]+" "+dd+", "+yyyy;
-
-addItem(today)
-console.log(today)
-console.log("hihihi")
+      today = months[mm]+" "+dd+", "+yyyy+", "+min;
+    addItem(today);
+    console.log(today)
+})
